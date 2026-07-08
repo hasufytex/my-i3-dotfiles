@@ -1,16 +1,18 @@
-# Sway window manager config (ported from i3). Env is set by ~/.local/bin/sway-session.
-
-font pango:monospace 16
+font pango:monospace, Symbols Nerd Font 16
 
 default_border none
 default_floating_border none
 
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && systemctl --user start sway-session.target
-exec swayidle -w timeout 300 "$HOME/.local/bin/swaylock_themed" before-sleep "$HOME/.local/bin/swaylock_themed"
+seat seat0 xcursor_theme Adwaita 24
+exec_always gsettings set org.gnome.desktop.interface cursor-theme Adwaita
+exec_always gsettings set org.gnome.desktop.interface cursor-size 24
 
-exec_always ~/.local/bin/bar-launch
-exec_always ~/.local/bin/toggle_theme.sh --apply
+exec dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec gentoo-pipewire-launcher restart
+exec /usr/libexec/xdg-desktop-portal-wlr
+exec /usr/libexec/xdg-desktop-portal
+
+exec swayidle -w timeout 600 swaylock before-sleep swaylock
 
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
@@ -19,17 +21,13 @@ bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 set $mod Mod4
 
-include ~/.config/sway/theme.conf
-
 floating_modifier $mod
 tiling_drag enable
 
-bindsym $mod+q exec kitty
+bindsym $mod+q exec foot
 bindsym $mod+c kill
-bindsym $mod+e exec nautilus
 
-bindsym $mod+r exec ~/.local/bin/wmenu_themed_run
-bindsym $mod+Shift+t exec ~/.local/bin/toggle_theme.sh
+bindsym $mod+r exec wmenu-run -f "Liberation Mono 16" -N "#222222" -n "#888888" -S "#222222" -s "#ffffff"
 bindsym $mod+b exec ~/.local/bin/bar-toggle
 
 bindsym $mod+Shift+s exec ~/.local/bin/screenshot_save_wl.sh
@@ -59,7 +57,7 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
-bindsym $mod+l exec ~/.local/bin/swaylock_themed
+bindsym $mod+l exec swaylock
 
 set $ws1 "1"
 set $ws2 "2"
@@ -104,15 +102,14 @@ mode "resize" {
 }
 bindsym $mod+Ctrl+r mode "resize"
 
-output DP-4 mode 2560x1440@170.020Hz
-output DP-4 adaptive_sync on
-output * bg ~/Downloads/1378545.jpg fill
+output DP-3 mode 2560x1440@170Hz
+output DP-3 adaptive_sync off
 
 input type:keyboard {
     xkb_layout "us,bg"
     xkb_variant ",phonetic"
     xkb_options "grp:win_space_toggle"
-    repeat_delay 150
+    repeat_delay 200
     repeat_rate 50
 }
 
