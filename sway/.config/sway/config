@@ -30,9 +30,9 @@ bindsym $mod+c kill
 bindsym $mod+r exec wmenu-run -f "Liberation Mono 16" -N "#222222" -n "#888888" -S "#222222" -s "#ffffff"
 bindsym $mod+b exec ~/.local/bin/bar-toggle
 
-bindsym $mod+Shift+s exec ~/.local/bin/screenshot_save_wl.sh
-bindsym $mod+Shift+c exec ~/.local/bin/screenshot_copy_wl.sh
-bindsym $mod+Shift+f exec ~/.local/bin/screenshot_fullscreen_wl.sh
+bindsym --no-repeat $mod+Shift+s exec ~/.local/bin/screenshot_save_wl.sh
+bindsym --no-repeat $mod+Shift+c exec ~/.local/bin/screenshot_copy_wl.sh
+bindsym --no-repeat $mod+Shift+f exec ~/.local/bin/screenshot_fullscreen_wl.sh
 
 bindsym $mod+p floating toggle
 
