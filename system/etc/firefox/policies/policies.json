@@ -1,9 +1,14 @@
 {
   "policies": {
+    "DisableAppUpdate": true,
     "Preferences": {
       "media.ffmpeg.vaapi.enabled": { "Value": true, "Status": "default" },
       "media.hardware-video-decoding.enabled": { "Value": true, "Status": "default" },
       "media.hardware-video-decoding.force-enabled": { "Value": true, "Status": "default" },
+
+      "gfx.webrender.all": { "Value": true, "Status": "default" },
+      "layers.acceleration.force-enabled": { "Value": true, "Status": "default" },
+      "gfx.webrender.software": { "Value": false, "Status": "default" },
 
       "browser.tabs.unloadOnLowMemory": { "Value": false, "Status": "default" },
       "browser.tabs.min_inactive_duration_before_unload": { "Value": 3600000, "Status": "default" },
