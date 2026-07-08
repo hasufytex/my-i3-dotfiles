@@ -1,6 +1,9 @@
 [mgr]
 show_hidden = true
 [opener]
+edit = [
+    { run = 'nano "$@"', block = true },
+]
 play = [
     { run = 'mpv "$@"', orphan = true },
 ]
@@ -15,5 +18,3 @@ prepend_rules = [
     { url = "*.m4a", use = "play" },
     { url = "*.flac", use = "play" },
 ]
-
-
