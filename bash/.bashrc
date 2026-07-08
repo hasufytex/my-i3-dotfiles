@@ -1,5 +1,3 @@
-# Bash config: history, completion, prompt, aliases, theme env, fzf, yazi.
-# If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 HISTFILE=~/.bash_history
@@ -16,8 +14,6 @@ bind 'set menu-complete-display-prefix on'
 bind 'TAB:menu-complete'
 bind '"\e[Z": menu-complete-backward'
 
-PS1='\[${PS1_COLOR}\]\w\[\e[0m\] '
-
 alias ls='ls -1 --group-directories-first --color=auto'
 alias ll='ls -lah'
 alias la='ls -A'
@@ -31,8 +27,6 @@ export VISUAL=nano
 [ -f /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.bash
 [ -f /usr/share/fzf/completion.bash ]   && source /usr/share/fzf/completion.bash
 
-# f: fuzzy-find a file under the current dir and open it in nano.
-# Optional arg pre-fills the query, e.g. `f bashrc`.
 f() {
     local file
     file="$(fd --type f --hidden --exclude .git 2>/dev/null \
@@ -40,7 +34,6 @@ f() {
         && [ -n "$file" ] && nano -- "$file"
 }
 
-# fcd: fuzzy-find a directory under the current dir and cd into it.
 fcd() {
     local dir
     dir="$(fd --type d --hidden --exclude .git 2>/dev/null \
@@ -61,7 +54,6 @@ y() {
     rm -f -- "$tmp_cwd" "$tmp_file"
 }
 
-# Ctrl+F: fuzzy-find a file and insert its path at the cursor.
 _fzf_chooser_fn() {
     local choice
 
@@ -90,7 +82,6 @@ _yazi_chooser_fn() {
     rm -f -- "$tmp_cwd" "$tmp_file"
 }
 
-# yazi cd: browse and on quit cd into selected dir.
 _yazi_cd_fn() {
     local tmp_cwd tmp_file choice cwd
 
@@ -112,8 +103,12 @@ _yazi_cd_fn() {
     printf '\n'
 }
 
-bind -x '"\C-y": _yazi_chooser_fn'  # Ctrl+Y — yazi picker (insert path)
+bind -x '"\C-y": _yazi_chooser_fn'
 bind '"\ey":"y\n"'
 
-bind -x '"\C-f": _fzf_chooser_fn'   # Ctrl+F — fzf picker (insert path)
-bind '"\ef":"fcd\n"'               # Alt+F — fuzzy cd into directory
+bind -x '"\C-f": _fzf_chooser_fn'
+bind '"\ef":"fcd\n"'
+# opencode
+export PATH=/home/hasu/.opencode/bin:$PATH
+
+alias claude="claude --dangerously-skip-permissions"
