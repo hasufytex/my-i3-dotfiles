@@ -14,4 +14,4 @@ export QT_QPA_PLATFORM="wayland;xcb"
 export SDL_VIDEODRIVER=wayland
 export _JAVA_AWT_WM_NONREPARENTING=1
 export ELECTRON_OZONE_PLATFORM_HINT=auto
-startplasma-wayland
+exec dbus-run-session -- startplasma-wayland
